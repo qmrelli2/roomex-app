@@ -1,0 +1,41 @@
+<div class="ticket" [ngClass]="{ 'in-active': !formData.favoriteMovie }">
+  <div class="header">
+    <img src="assets/images/roomex.png" />
+    <p>{{ randomId | date : "dd.MM.YYY, HH:mm" }}</p>
+  </div>
+
+  <div class="divider">
+    <div class="notch"></div>
+    <div class="notch right"></div>
+  </div>
+
+  <div class="body">
+    <div class="section">
+      <h3>Name:</h3>
+      <p *ngIf="formData.name">{{ formData.name }}</p>
+      <p *ngIf="!formData.name">—</p>
+    </div>
+    <div class="section">
+      <h3>Username / Email:</h3>
+      <p *ngIf="formData.username">{{ formData.username }}</p>
+      <p *ngIf="!formData.username">—</p>
+    </div>
+    <div class="section">
+      <h3>County - Post Code:</h3>
+      <p *ngIf="formData.country && formData.country === 1">Ireland</p>
+      <p *ngIf="formData.country && formData.country === 2">United Kingdom</p>
+      <p *ngIf="formData.postCode">{{ formData.postCode }}</p>
+      <p *ngIf="!formData.country && !formData.postCode">—</p>
+    </div>
+    <div class="section">
+      <h3>Favorite Movie:</h3>
+      <p *ngIf="formData.favoriteMovie">{{ formData.favoriteMovie }}</p>
+      <p *ngIf="!formData.favoriteMovie">—</p>
+    </div>
+  </div>
+  <div class="footer">
+    <p *ngIf="formData.favoriteMovie">Thank you!</p>
+
+    <p *ngIf="!formData.favoriteMovie">Fill the form!</p>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+
+  .router-wrapper {
+    width: 50vw;
+    height: calc(100vh - 6rem);
+    padding: 2rem;
+  }
+
+  .poster-wrapper {
+    width: 50vw;
+    height: 100vh;
+    padding: 2rem;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .router-wrapper {
+      width: 100vw;
+    }
+    .poster-wrapper {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,102 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- NAME -->
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="form.controls['name']"
+      placeholder="Your name"
+    />
+    <mat-error *ngIf="form.controls['name'].hasError('required')">
+      Name is required
+    </mat-error>
+    <mat-error *ngIf="form.controls['name'].hasError('pattern')">
+      Name can not contain any numbers
+    </mat-error>
+  </mat-form-field>
+
+  <!-- USERNAME -->
+  <mat-form-field>
+    <mat-label>Username</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="form.controls['username']"
+      placeholder="Your email"
+    />
+    <mat-error *ngIf="form.controls['username'].hasError('email')">
+      Username has to be an email
+    </mat-error>
+  </mat-form-field>
+
+  <!-- COUNTRY -->
+  <mat-form-field>
+    <mat-label>Country</mat-label>
+    <mat-select [formControl]="form.controls['country']">
+      <mat-option *ngFor="let country of countryList" [value]="country.value">
+        {{ country.text }}
+      </mat-option>
+    </mat-select>
+
+    <mat-error *ngIf="form.controls['country'].hasError('required')">
+      Country is required
+    </mat-error>
+  </mat-form-field>
+
+  <!-- POSTCODE -->
+  <mat-form-field>
+    <mat-label>Post Code</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="form.controls['postCode']"
+      placeholder="Your post code"
+    />
+
+    <mat-error *ngIf="form.controls['postCode'].hasError('required')">
+      Post Code is required
+    </mat-error>
+    <mat-error *ngIf="form.controls['postCode'].hasError('pattern')">
+      Post Code has to be in United Kingdom format
+    </mat-error>
+    <mat-error
+      *ngIf="
+        form.controls['postCode'].hasError('minlength') ||
+        form.controls['postCode'].hasError('maxlength')
+      "
+    >
+      Post Code has to be in between 6-10
+    </mat-error>
+  </mat-form-field>
+
+  <!-- FAVORITE MOVIE -->
+  <mat-form-field>
+    <mat-label>Favorite Movie</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="form.controls['favoriteMovie']"
+      placeholder="Your favorite movie"
+      [matAutocomplete]="auto"
+    />
+
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let option of movieService.movies$ | async"
+        [value]="option.Title"
+        (mouseenter)="onOptionHover(option)"
+        (click)="onOptionClick()"
+      >
+        {{ option.Title }}
+      </mat-option>
+    </mat-autocomplete>
+
+    <mat-error *ngIf="form.controls['favoriteMovie'].hasError('required')">
+      Favorite Movie is required
+    </mat-error>
+  </mat-form-field>
+
+  <!-- SUBMIT BUTTON -->
+  <button type="submit">SUBMIT</button>
+</form>
