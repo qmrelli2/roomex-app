@@ -7,7 +7,7 @@ export class MoviesService {
   private http = inject(HttpClient);
 
   private defaultPoster = 'assets/images/poster-default.jpeg';
-  private apiUrl = 'http://www.omdbapi.com';
+  private apiUrl = 'https://www.omdbapi.com';
 
   private _movies = new BehaviorSubject<any[]>([]);
   public movies$ = this._movies.asObservable();

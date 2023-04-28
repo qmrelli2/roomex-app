@@ -1,7 +1,7 @@
 <div class="ticket" [ngClass]="{ 'in-active': !formData.favoriteMovie }">
   <div class="header">
     <img src="assets/images/roomex.png" />
-    <p>{{ randomId | date : "dd.MM.YYY, HH:mm" }}</p>
+    <p class="date">{{ date | date : "dd.MM.YYY, HH:mm" }}</p>
   </div>
 
   <div class="divider">

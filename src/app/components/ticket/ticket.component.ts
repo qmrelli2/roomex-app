@@ -10,5 +10,5 @@ import { Component, Input } from '@angular/core';
 })
 export class TicketComponent {
   @Input() formData: any;
-  public randomId = Date.now();
+  public date = new Date();
 }

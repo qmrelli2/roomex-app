@@ -2,6 +2,7 @@
   display: flex;
   width: 100vw;
   height: 100vh;
+  margin: auto;
 
   .router-wrapper {
     width: 50vw;
@@ -15,12 +16,24 @@
     padding: 2rem;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 768px) {
     .router-wrapper {
       width: 100vw;
     }
     .poster-wrapper {
       display: none;
+    }
+  }
+
+  @media only screen and (min-width: 1600px) {
+    width: 1600px;
+
+    .router-wrapper {
+      width: 800px;
+    }
+
+    .poster-wrapper {
+      width: 800px;
     }
   }
 }
