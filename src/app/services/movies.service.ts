@@ -29,6 +29,7 @@ export class MoviesService {
   }
 
   setPoster(poster?: string) {
+    console.log('set poster', poster);
     if (poster) {
       this._poster.next(poster);
     } else {

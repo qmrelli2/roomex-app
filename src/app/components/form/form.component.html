@@ -74,6 +74,7 @@
   <mat-form-field>
     <mat-label>Favorite Movie</mat-label>
     <input
+      #favoriteMovieInput
       type="text"
       matInput
       [formControl]="form.controls['favoriteMovie']"
@@ -86,7 +87,7 @@
         *ngFor="let option of movieService.movies$ | async"
         [value]="option.Title"
         (mouseenter)="onOptionHover(option)"
-        (click)="onOptionClick()"
+        (click)="onOptionClick(option)"
       >
         {{ option.Title }}
       </mat-option>

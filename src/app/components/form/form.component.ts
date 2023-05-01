@@ -1,5 +1,11 @@
 import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,10 +14,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { MatInputModule } from '@angular/material/input';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-
 import { DataService } from 'src/app/services/data.service';
 import { MoviesService } from 'src/app/services/movies.service';
 
@@ -38,6 +43,9 @@ export class FormComponent implements OnInit {
   public movieService = inject(MoviesService);
   private formBuilder = inject(FormBuilder);
 
+  @ViewChild('favoriteMovieInput')
+  favoriteMovieInput!: ElementRef;
+
   public form = new FormGroup({
     name: new FormControl(''),
     username: new FormControl(''),
@@ -58,11 +66,10 @@ export class FormComponent implements OnInit {
       text: 'United Kingdom',
     },
   ];
-  submitted = false;
 
   constructor() {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern('^[A-Za-z0]+$')]],
+      name: ['', [Validators.required, Validators.pattern(`[A-Za-z]+`)]],
       username: ['', [Validators.email]],
       country: ['', [Validators.required]],
       postCode: [''],
@@ -72,9 +79,9 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form.controls['favoriteMovie'].valueChanges.subscribe((val: any) => {
-      if (val) {
+      if (val !== '') {
         this.movieService.makeSearch(val);
-      } else {
+      } else if (val === '') {
         this.movieService.resetMovies();
         this.movieService.setPoster();
       }
@@ -104,23 +111,21 @@ export class FormComponent implements OnInit {
     this.movieService.setPoster(movie.Poster);
   }
 
-  onOptionClick() {
+  onOptionClick(movie: any) {
+    //this.movieService.setPoster(movie.Poster);
+    this.favoriteMovieInput.nativeElement.blur();
+
     this.movieService.resetMovies();
+
+    console.log(movie);
   }
 
   onSubmit() {
-    this.submitted = true;
-
     if (this.form.invalid) {
       return;
     }
 
     this.dataService.saveForm(this.form.value);
     this.router.navigate(['thank-you']);
-  }
-
-  onReset(): void {
-    this.submitted = false;
-    this.form.reset();
   }
 }
